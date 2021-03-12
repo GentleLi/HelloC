@@ -13,4 +13,6 @@ void quick_sort(int a[], int left, int right);
 
 void merge_sort(int a[], int left, int right, int temp[]);
 
+void heap_sort(int a[], int size);
+
 #endif //HELLOC_SORT_H

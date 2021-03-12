@@ -101,3 +101,38 @@ void merge_sort(int a[], int left, int right, int temp[]) {
     }
 }
 
+
+void adjust_heap(int a[], int i, int size) {
+    int temp = a[i];
+    for (int k = 2 * i + 1; k < size; k = k * 2 + 1) {
+        if (k + 1 < size && a[k + 1] > a[k]) {//比较左子节点和右子节点的值;如果右子节点大于左子节点，则k=k+1指向右子节点,否则k仍指向左子节点
+            k++;
+        }
+        if (a[k] > temp) {//比较当前位置a[k]与父节点temp大小
+            a[i] = a[k];
+            i = k;
+        } else {
+            continue;
+        }
+    }
+    a[i] = temp;//最终存放位置
+}
+
+void swap(int a[], int p, int q) {
+    int temp = a[p];
+    a[p] = a[q];
+    a[q] = temp;
+}
+
+void heap_sort(int a[], int size) {
+    int i = size / 2 - 1;
+    //调整堆，首次调整从i=(size/2-1)处开始进行
+    for (int j = i; j >= 0; j--) {
+        adjust_heap(a, j, size);
+    }
+    for (int j = size - 1; j >= 0; j--) {
+        swap(a, 0, j);//交換根节点与尾部叶子结点的值
+        adjust_heap(a, 0, j);//调整堆，从0节点开始，因为顶部根节点刚刚做了交换
+    }
+}
+
